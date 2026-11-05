@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keycap-Designer</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/" } }
+</script>
+</head>
+<body>
+<aside id="panel">
+  <h1>Keycap-Designer</h1>
+
+  <section>
+    <label for="layout">Layout</label>
+    <select id="layout"></select>
+  </section>
+
+  <section>
+    <label for="slotCount">Filament-Slots</label>
+    <select id="slotCount"></select>
+    <div id="slots"></div>
+  </section>
+
+  <section>
+    <h2>Auswahl <span id="selInfo">(keine)</span></h2>
+    <div class="row"><button id="selAll">Alle</button><button id="selNone">Keine</button></div>
+    <p class="hint">Klick wählt eine Taste, Shift-Klick erweitert die Auswahl.</p>
+    <div class="pick" data-target="selection" data-part="cap"><span>Cap</span><div class="swatches"></div></div>
+    <div class="pick" data-target="selection" data-part="legend"><span>Legend</span><div class="swatches"></div></div>
+  </section>
+
+  <section>
+    <h2>Ganze Tastatur</h2>
+    <div class="pick" data-target="all" data-part="cap"><span>Cap</span><div class="swatches"></div></div>
+    <div class="pick" data-target="all" data-part="legend"><span>Legend</span><div class="swatches"></div></div>
+  </section>
+
+  <section>
+    <h2>Werkzeug</h2>
+    <div class="row"><button id="toolSelect" class="active">Auswählen</button><button id="toolPaint">Malen</button></div>
+    <div id="paintOpts" hidden>
+      <div class="pick"><span>Slot</span><div id="paintSlots" class="swatches2"></div></div>
+      <div class="row"><button id="erase" title="Radiergummi (Wert 0 = unbemalt)">Radiergummi</button></div>
+      <label for="brushSize">Pinselgröße <span id="brushVal">3 mm</span></label>
+      <input id="brushSize" type="range" min="0.5" max="10" step="0.5" value="3">
+      <p class="hint">Links malen, rechts drehen, Mitte schieben. Gemalt wird nur auf der Oberseite der Taste unter dem Zeiger.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Bild</h2>
+    <input id="imageFile" type="file" accept="image/*">
+    <label for="imageTarget">Ziel</label>
+    <select id="imageTarget">
+      <option value="span">Über die Auswahl spannen</option>
+      <option value="each">Auf jede ausgewählte Taste</option>
+      <option value="all">Ganze Tastatur</option>
+    </select>
+    <label for="imageFit">Anpassung</label>
+    <select id="imageFit"><option value="fit">Einpassen</option><option value="fill">Füllen</option></select>
+    <label class="check"><input id="imageDither" type="checkbox" checked> Dithering</label>
+    <button id="applyImage">Bild aufbringen</button>
+  </section>
+
+  <section>
+    <h2>Muster</h2>
+    <div id="patterns"></div>
+  </section>
+
+  <section>
+    <h2>Projekt</h2>
+    <div class="row"><button id="undo" disabled>Rückgängig</button><button id="saveProject">Speichern</button><button id="loadProject">Laden</button></div>
+    <input id="projectFile" type="file" accept=".json,application/json" hidden>
+  </section>
+
+  <section>
+    <button id="export" class="primary">3MF exportieren</button>
+    <p id="status" class="hint" role="status"></p>
+  </section>
+</aside>
+<main id="view"><canvas id="canvas"></canvas></main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
